@@ -162,6 +162,19 @@ assert path.exists(chrome_driver_exe_path), 'chromedriver.exe not found!'
 
 Sachil = False
 DayReserved = ''
+main_heading = '''
+██████████████████████████████████████████████
+█                                            █
+█                 BASIC FIT                  █
+█                 ----------                 █
+█                 GO FOR IT                  █
+█                                            █
+██████████████████████████████████████████████
+
+
+'''
+
+print(main_heading)
 print("1:Maandag\n2:Dinsdag\n3:Woensdag\n4:Donderdag\n5:Vrijdag\n6:Zaterdag\n7:Zondag")
 print("")
 ValidInput = True
