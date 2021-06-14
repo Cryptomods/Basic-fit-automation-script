@@ -8,6 +8,7 @@ from selenium import webdriver
 from os.path import abspath
 from os import path
 from time import sleep
+from datetime import datetime
 
 
 def reservePlace():
@@ -42,35 +43,54 @@ def reservePlace():
 
         datereserve = driver.find_elements_by_class_name("radio-button-row")
 
+
         for i in datereserve:
             datestring = i.text[:i.text.index(",")]
             if(datestring==DayReserved):
                 # print(i.text)
                 i.click()
                 break
-
+        sleep(2)
         element = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CLASS_NAME, "gym-time-reserve-word"))
+        EC.presence_of_element_located((By.CLASS_NAME, "clickable"))
         )
 
 
-        gymtime = driver.find_elements_by_class_name("gym-time-reserve-word")
+        gymtime = driver.find_elements_by_class_name("clickable")
 
-        sleep(1)
+        try:
+            driver.find_element_by_id("nightSlotsId")
+            gymtime = gymtime[5:]
+        except:
+            "No evening slot"
+            gymtime = gymtime[4:]
+    
+
+        reserveerwoord = []
+        for word in gymtime:
+            if(word.get_attribute("style") == "background: rgb(255, 255, 255);"):
+                reserveerwoord.append("RESERVEER")
+            else:
+                reserveerwoord.append("FULL")
+        print(reserveerwoord)
+
+        print(len(gymtime))
+
+        # sleep(1)
         element = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CLASS_NAME, "bdDYJz"))
         )
 
-        templist = ['Schiedam Prinses Beatrixlaan 24/7', 'Nacht', 'Ochtend', 'Middag', 'Avond']
+        templist = ['Schiedam Prinses Beatrixlaan 24/7', 'Schiedam de Brauwweg 24/7', 'Nacht', 'Ochtend', 'Middag', 'Avond']
         gymtijden = []
         timestamp = driver.find_elements_by_class_name("bdDYJz")
         for i in timestamp:
             if(i.text not in templist):
                 gymtijden.append(i.text)
 
-        reserveerwoord = []
-        for gym in gymtime:
-            reserveerwoord.append(gym.text)
+        # reserveerwoord = []
+        # for gym in gymtime:
+        #     reserveerwoord.append(gym.text)
 
         counter = BeginTime
         teller = 0 
@@ -79,6 +99,7 @@ def reservePlace():
         print(reservedTime)
         for gymtijd in gymtijden:
             if( reserveerwoord[teller] == 'RESERVEER') and gymtijden[teller] in reservedTime:
+                print(gymtijden[teller])
                 gymtime[teller].click()
                 element = WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.ID, "nextBtnId"))
@@ -123,8 +144,9 @@ def reservePlace():
                     break
             teller+=1
             
-        sleep(2)
+        # sleep(2)
         print("No place")
+        print(datetime.now())
         driver.refresh()
         sleep(2)
     
@@ -199,7 +221,7 @@ sleep(4)
 element = WebDriverWait(driver, 10).until(
 EC.presence_of_element_located((By.XPATH, "//*[@id='welcomeMessageHead']"))
 )
-if(element.text == "WELKOM SACHIL!"):
+if(element.text == "WELKOM ROY!"):
     Sachil = True
     print(element.text)
 
