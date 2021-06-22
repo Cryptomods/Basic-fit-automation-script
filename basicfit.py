@@ -15,8 +15,6 @@ def reservePlace():
     global notReserved
     
     try:
-
-
         element = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.ID, "reserveBookingId"))
         )
@@ -74,7 +72,7 @@ def reservePlace():
                 reserveerwoord.append("FULL")
         print(reserveerwoord)
 
-        print(len(gymtime))
+        # print(len(gymtime))
 
         # sleep(1)
         element = WebDriverWait(driver, 10).until(
@@ -106,7 +104,7 @@ def reservePlace():
                 )
                 element.click()
                 
-                if Sachil:
+                if Comfort:
                     element = WebDriverWait(driver, 10).until(
                     EC.presence_of_element_located((By.XPATH, "//*[@id='contentSection']/div[1]/div[13]/span"))
                     )
@@ -160,7 +158,7 @@ options.add_argument(r"--user-data-dir=C:\Users\Admin\AppData\Local\Google\Chrom
 chrome_driver_exe_path = abspath("D:/Admin/Downloads/chromedriver_win32/chromedriver.exe")  # download from https://chromedriver.chromium.org/downloads
 assert path.exists(chrome_driver_exe_path), 'chromedriver.exe not found!'
 
-Sachil = False
+Comfort = False
 DayReserved = ''
 main_heading = '''
 ██████████████████████████████████████████████
@@ -229,14 +227,17 @@ driver.maximize_window()
 driver.get("https://my.basic-fit.com/overview")
 
 
+nameList = ["ROY!", "SACHIL!"]
+
 sleep(4)
 #check if user is Sachil or Carlo
 element = WebDriverWait(driver, 10).until(
 EC.presence_of_element_located((By.XPATH, "//*[@id='welcomeMessageHead']"))
 )
-if(element.text == "WELKOM ROY!"):
-    Sachil = True
-    print(element.text)
+if(element.text.split()[1] in nameList): #change this later my_str[:-1]
+    Comfort = True
+
+print(element.text)
 
 
 
