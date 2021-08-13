@@ -66,7 +66,7 @@ def reservePlace():
 
         reserveerwoord = []
         for word in gymtime:
-            if(word.get_attribute("style") == "background: rgb(255, 255, 255);"):
+            if(word.get_attribute("style") == "background: rgb(254, 112, 0);"):
                 reserveerwoord.append("RESERVEER")
             else:
                 reserveerwoord.append("FULL")
@@ -76,12 +76,12 @@ def reservePlace():
 
         # sleep(1)
         element = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CLASS_NAME, "bdDYJz"))
+        EC.presence_of_element_located((By.CLASS_NAME, "aqTZb"))
         )
 
         templist = ['Schiedam Prinses Beatrixlaan 24/7', 'Schiedam de Brauwweg 24/7', 'Nacht', 'Ochtend', 'Middag', 'Avond']
         gymtijden = []
-        timestamp = driver.find_elements_by_class_name("bdDYJz")
+        timestamp = driver.find_elements_by_class_name("aqTZb")
         for i in timestamp:
             if(i.text not in templist):
                 gymtijden.append(i.text)
