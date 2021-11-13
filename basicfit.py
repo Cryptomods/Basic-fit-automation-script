@@ -13,7 +13,6 @@ from datetime import datetime
 
 def reservePlace():
     global notReserved
-    
     try:
         element = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.ID, "reserveBookingId"))
@@ -62,7 +61,7 @@ def reservePlace():
         except:
             "No evening slot"
             gymtime = gymtime[4:]
-    
+
 
         reserveerwoord = []
         for word in gymtime:
@@ -76,12 +75,12 @@ def reservePlace():
 
         # sleep(1)
         element = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CLASS_NAME, "aqTZb"))
+        EC.presence_of_element_located((By.CLASS_NAME, "hEekTv"))
         )
 
         templist = ['Schiedam Prinses Beatrixlaan 24/7', 'Schiedam de Brauwweg 24/7', 'Nacht', 'Ochtend', 'Middag', 'Avond']
         gymtijden = []
-        timestamp = driver.find_elements_by_class_name("aqTZb")
+        timestamp = driver.find_elements_by_class_name("hEekTv")
         for i in timestamp:
             if(i.text not in templist):
                 gymtijden.append(i.text)
@@ -148,14 +147,15 @@ def reservePlace():
         driver.refresh()
         sleep(2)
     
-    except:
+    except Exception as e:
+        print(e)
         driver.get("https://my.basic-fit.com/gym-time-booking")
 
 
 options = webdriver.ChromeOptions()
-options.add_argument(r"--user-data-dir=C:\Users\Admin\AppData\Local\Google\Chrome\User Data")  # Path to your chrome profile or you can open chrome and type: "chrome://version/" on URL
+options.add_argument(r"--user-data-dir=C:\Users\Banano\AppData\Local\Google\Chrome\User Data")  # Path to your chrome profile or you can open chrome and type: "chrome://version/" on URL
 
-chrome_driver_exe_path = abspath("D:/Admin/Downloads/chromedriver_win32/chromedriver.exe")  # download from https://chromedriver.chromium.org/downloads
+chrome_driver_exe_path = abspath("C:/Users/Banano/Downloads/chromedriver_win32/chromedriver.exe")  # download from https://chromedriver.chromium.org/downloads
 assert path.exists(chrome_driver_exe_path), 'chromedriver.exe not found!'
 
 Comfort = False
@@ -231,18 +231,18 @@ nameList = ["ROY!", "SACHIL!"]
 
 sleep(4)
 #check if user is Sachil or Carlo
+# element = WebDriverWait(driver, 10).until(
+# EC.presence_of_element_located((By.XPATH, "//*[@id='welcomeMessageHead']"))
+# )
+# if(element.text.split()[1] in nameList): #change this later my_str[:-1]
+#     Comfort = True
+
+# print(element.text)
+
+Comfort = True
+
 element = WebDriverWait(driver, 10).until(
-EC.presence_of_element_located((By.XPATH, "//*[@id='welcomeMessageHead']"))
-)
-if(element.text.split()[1] in nameList): #change this later my_str[:-1]
-    Comfort = True
-
-print(element.text)
-
-
-
-element = WebDriverWait(driver, 10).until(
-EC.presence_of_element_located((By.ID, "makeBookingId"))
+EC.presence_of_element_located((By.ID, "gymTimeBookingMenuId"))
 )
 sleep(1)
 element.click()
