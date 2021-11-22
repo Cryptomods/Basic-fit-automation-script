@@ -105,12 +105,12 @@ def reservePlace():
                 
                 if Comfort:
                     element = WebDriverWait(driver, 10).until(
-                    EC.presence_of_element_located((By.XPATH, "//*[@id='contentSection']/div[1]/div[13]/span"))
+                    EC.presence_of_element_located((By.XPATH, "//*[@id='contentSection']/div[1]/div/div[13]/span"))
                     )
                     element.click()
 
                     element = WebDriverWait(driver, 10).until(
-                    EC.presence_of_element_located((By.XPATH, "//*[@id='contentSection']/div[1]/div[22]/div[1]"))
+                    EC.presence_of_element_located((By.XPATH, "//*[@id='contentSection']/div[1]/div/div[22]/div[1]"))
                     )
                     element.click()
 
